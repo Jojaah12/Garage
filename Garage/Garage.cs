@@ -14,6 +14,8 @@ namespace Garage
 
         public int Capacity { get; }
 
+        public int Count => count;
+
         public Garage(int capacity)
         {
             Capacity = capacity;
