@@ -89,6 +89,14 @@ namespace Garage
             }
         }
 
+        public void PopulateGarage(IEnumerable<T> initialVehicles)
+        {
+            foreach (var vehicle in initialVehicles)
+            {
+                ParkVehicle(vehicle);
+            }
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             foreach (var vehicle in vehicles)
