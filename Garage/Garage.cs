@@ -62,6 +62,24 @@ namespace Garage
             }
         }
 
+        public List<Vehicle> SearchVehicles(string registrationNumber = null, string color = null, int? numberOfWheels = null)
+        {
+            List<Vehicle> matchingVehicles = new List<Vehicle>();
+
+            foreach (var vehicle in vehicles)
+            {
+                // Check if the vehicle matches the search criteria
+                if ((registrationNumber == null || vehicle.RegistrationNumber.Equals(registrationNumber, StringComparison.OrdinalIgnoreCase)) &&
+                    (color == null || vehicle.Color.Equals(color, StringComparison.OrdinalIgnoreCase)) &&
+                    (!numberOfWheels.HasValue || vehicle.NumberOfWheels == numberOfWheels))
+                {
+                    matchingVehicles.Add(vehicle);
+                }
+            }
+
+            return matchingVehicles;
+        }
+
         public T FindVehicle(string registrationNumber)
         {
             foreach (var vehicle in vehicles)
