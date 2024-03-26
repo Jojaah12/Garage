@@ -50,6 +50,18 @@ namespace Garage
             return false;
         }
 
+        public void ListParkedVehicles()
+        {
+            Console.WriteLine("Parked Vehicles:");
+            foreach (var vehicle in vehicles)
+            {
+                if (vehicle != null)
+                {
+                    Console.WriteLine($"Registration Number: {vehicle.RegistrationNumber}, Color: {vehicle.Color}, Number of Wheels: {vehicle.NumberOfWheels}");
+                }
+            }
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             foreach (var vehicle in vehicles)
