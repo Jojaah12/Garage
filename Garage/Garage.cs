@@ -62,6 +62,18 @@ namespace Garage
             }
         }
 
+        public T FindVehicle(string registrationNumber)
+        {
+            foreach (var vehicle in vehicles)
+            {
+                if (vehicle != null && vehicle.RegistrationNumber.Equals(registrationNumber, StringComparison.OrdinalIgnoreCase))
+                {
+                    return vehicle;
+                }
+            }
+            return null;
+        }
+
         public void ListVehicleTypesAndCounts()
         {
             Dictionary<Type, int> vehicleCounts = new Dictionary<Type, int>();
