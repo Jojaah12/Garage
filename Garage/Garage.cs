@@ -62,6 +62,33 @@ namespace Garage
             }
         }
 
+        public void ListVehicleTypesAndCounts()
+        {
+            Dictionary<Type, int> vehicleCounts = new Dictionary<Type, int>();
+
+            foreach (var vehicle in vehicles)
+            {
+                if (vehicle != null)
+                {
+                    Type vehicleType = vehicle.GetType();
+                    if (vehicleCounts.ContainsKey(vehicleType))
+                    {
+                        vehicleCounts[vehicleType]++;
+                    }
+                    else
+                    {
+                        vehicleCounts[vehicleType] = 1;
+                    }
+                }
+            }
+
+            Console.WriteLine("Vehicle Types and Counts:");
+            foreach (var kvp in vehicleCounts)
+            {
+                Console.WriteLine($"{kvp.Key.Name}: {kvp.Value}");
+            }
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             foreach (var vehicle in vehicles)
