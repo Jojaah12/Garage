@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace Garage
 {
-    public class Vehicle
+    public interface IVehicle
     {
-        public string RegistrationNumber { get; set; }
-        public string Color { get; set; }
-        public int NumberOfWheels { get; set; }
+        string RegistrationNumber { get; }
+        string Color { get; }
+        int NumberOfWheels { get; }
+    }
+
+    public class Vehicle : IVehicle
+    {
+        public string RegistrationNumber { get; }
+        public string Color { get; }
+        public int NumberOfWheels { get; }
 
         public Vehicle(string registrationNumber, string color, int numberOfWheels)
         {

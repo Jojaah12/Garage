@@ -1,19 +1,27 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
+
 
 namespace Garage
 {
-    public class Garage<T> : IEnumerable<T> where T : Vehicle
+    public interface IGarage<T> : IEnumerable<T> where T : IVehicle
+    {
+        int Capacity { get; }
+        int Count { get; }
+        void ParkVehicle(T vehicle);
+        bool RemoveVehicle(string registrationNumber);
+        void ListParkedVehicles();
+        List<IVehicle> SearchVehicles(string registrationNumber = null, string color = null, int? numberOfWheels = null);
+        T FindVehicle(string registrationNumber);
+        void ListVehicleTypesAndCounts();
+        void PopulateGarage(IEnumerable<T> initialVehicles);
+    }
+
+    public class Garage<T> : IGarage<T> where T : IVehicle
     {
         private T[] vehicles;
         private int count;
 
         public int Capacity { get; }
-
         public int Count => count;
 
         public Garage(int capacity)
@@ -42,7 +50,7 @@ namespace Garage
             {
                 if (vehicles[i].RegistrationNumber.Equals(registrationNumber, StringComparison.OrdinalIgnoreCase))
                 {
-                    vehicles[i] = null;
+                    vehicles[i] = default(T);
                     count--;
                     Console.WriteLine($"Vehicle with registration number {registrationNumber} removed from the garage.");
                     return true;
@@ -64,13 +72,12 @@ namespace Garage
             }
         }
 
-        public List<Vehicle> SearchVehicles(string registrationNumber = null, string color = null, int? numberOfWheels = null)
+        public List<IVehicle> SearchVehicles(string registrationNumber = null, string color = null, int? numberOfWheels = null)
         {
-            List<Vehicle> matchingVehicles = new List<Vehicle>();
+            List<IVehicle> matchingVehicles = new List<IVehicle>();
 
             foreach (var vehicle in vehicles)
             {
-                // Check if the vehicle matches the search criteria
                 if ((registrationNumber == null || vehicle.RegistrationNumber.Equals(registrationNumber, StringComparison.OrdinalIgnoreCase)) &&
                     (color == null || vehicle.Color.Equals(color, StringComparison.OrdinalIgnoreCase)) &&
                     (!numberOfWheels.HasValue || vehicle.NumberOfWheels == numberOfWheels))
@@ -91,7 +98,7 @@ namespace Garage
                     return vehicle;
                 }
             }
-            return null;
+            return default(T);
         }
 
         public void ListVehicleTypesAndCounts()
