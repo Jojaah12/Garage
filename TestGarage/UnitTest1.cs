@@ -18,7 +18,5 @@ namespace GarageTests
             // Assert
             Assert.AreEqual(1, garage.Count);
         }
-
-        // More test methods for other public methods of the Garage class...
     }
 }
